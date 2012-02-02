@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				width="100%" height="100%" minWidth="955" minHeight="600" alpha="1.0"
+				backgroundGradientAlphas="[1.0, 0.0]" initialize="init()" layout="absolute">
+	
+<mx:DateFormatter id= "data_formater" formatString="DD/MM/YYYY" />
+	
+	<mx:Script>
+		<![CDATA[
+			import comunication.AlunosServer;
+			import comunication.ClientesServer;
+			
+			import lib.Comum;
+			
+			import models.Aluno;
+			import models.Cliente;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			public var aluno:Aluno;
+			
+			
+			public function formatar_data(item:Object, data:DataGridColumn):String {
+				return data_formater.format(item[data.dataField]);
+			}
+			
+			public function init():void
+			{
+				find_all();
+			}
+			
+			public function find_all():void
+			{						
+				AlunosServer.getInstance().find_all(retorno);
+			}
+			
+			public function retorno(aluno:ArrayCollection):void
+			{
+				aluno_datagrid.dataProvider = aluno;
+			}
+			
+			public function abrir_cadastro_alunos(evt:Event):void 
+			{
+				var w_cadastro_alunos:CadAlunos	= new CadAlunos();
+				w_cadastro_alunos.pai = this;
+				PopUpManager.addPopUp(w_cadastro_alunos, this);
+				PopUpManager.centerPopUp(w_cadastro_alunos);
+			}
+			
+			public function confirmacao():void 
+			{
+				Comum.showConfirmAlert("Aluno Excluido com Sucesso!");
+				find_all();
+			}
+			
+			public function remover_aluno(obj:Object):void
+			{
+				var aluno:Aluno = obj as Aluno;
+				AlunosServer.getInstance().remover_aluno(aluno, confirmacao);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid id="aluno_datagrid" x="104.5" y="208" width="475" height="295">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nome"				    
+							   dataField="nome"
+							   />
+			
+			<mx:DataGridColumn id="cpf_aluno"
+							   headerText="CPF" 
+							   dataField="cpf" 
+							   width="110"/>
+			
+			<mx:DataGridColumn headerText="Data de Nascimento"
+							   labelFunction="formatar_data"	
+							   dataField="data_nascimento"
+							   width="130"/>
+			
+			<mx:DataGridColumn headerText="Ações"
+							   width="70">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:LinkButton icon="@Embed('assets/12_apagar.png')" click="outerDocument.remover_aluno(data)"/>						
+					</mx:Component>				
+				</mx:itemRenderer>			
+			</mx:DataGridColumn>
+			
+		</mx:columns>
+		
+	</mx:DataGrid>
+
+	
+	<mx:Button x="104.5" y="178" width="130" 
+			   click="abrir_cadastro_alunos(event)"
+			   label="Novo Aluno"/>
+	
+</mx:Application>

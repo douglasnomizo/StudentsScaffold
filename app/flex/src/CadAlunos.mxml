@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml"
+				width="440" 
+				height="348" 
+				horizontalScrollPolicy="off"
+				showCloseButton="true" close="fecharJanela()" 
+				title="Cadastro de Alunos"
+				verticalScrollPolicy="off">
+
+<mx:Script>
+	<![CDATA[
+		import comunication.AlunosServer;
+		
+		import lib.Comum;
+		import lib.CustomEvent;
+		
+		import models.Aluno;
+		
+		import mx.controls.Alert;
+		import mx.controls.PopUpButton;
+		import mx.managers.PopUpManager;
+		
+		public var pai:Object;
+		
+		
+		public function fecharJanela():void
+		{
+			pai.init();	
+			PopUpManager.removePopUp(this);
+		}
+		
+		public function init():void 
+		{
+
+			
+		}
+		
+		public function confirmacao(obj:Object):void
+		{
+			Comum.showConfirmAlert("Aluno Cadastrado com Sucesso!");
+			PopUpManager.removePopUp(this);
+			pai.init();
+		}
+		
+		
+		public function salvar():void
+		{
+			var novo_aluno:Aluno = new Aluno;
+			
+			novo_aluno.nome = nome.text;
+			novo_aluno.cpf = cpf.text;
+			novo_aluno.data_nascimento = data_nascimento_aluno.selectedDate;
+			
+			AlunosServer.getInstance().new_aluno(novo_aluno, confirmacao);
+			
+		}
+	]]>
+</mx:Script>
+<mx:Form width="100%" height="100%">
+	
+	
+	<mx:Canvas width="381" height="244" 
+			   borderStyle="inset" 
+			   cornerRadius="7">
+		
+		<mx:Label x="10" y="10" 
+				  text="Nome:"/>
+		
+		<mx:Label x="10" y="40" 
+				  text="CPF:"/>
+		
+		<mx:Label x="10" y="75" 
+				  text="Data de Nascimento:" />
+		
+		<mx:TextInput x="91" y="8" width="147" 
+					  id="nome"/>
+		
+		<mx:TextInput x="91" y="38" width="147" 
+					  id="cpf"/>
+		
+		<mx:DateField id="data_nascimento_aluno" 
+					  x="135" y="73" width="103" 
+					  editable="true"
+					  formatString="DD/MM/YYYY" 
+					  restrict="[0-9]" 
+					  yearNavigationEnabled="true"/>
+	</mx:Canvas>
+	<mx:Canvas width="100%">
+		
+		
+		<mx:Button x="319" y="0" 
+				   label="Salvar" 
+				   click="salvar()"/>
+	</mx:Canvas>
+</mx:Form>	</mx:TitleWindow>

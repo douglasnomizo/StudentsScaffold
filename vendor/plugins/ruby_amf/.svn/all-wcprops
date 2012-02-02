@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf/LICENSE
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf/.gitignore
+END
+init.rb
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf/init.rb
+END
+CHANGELOG
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf/CHANGELOG
+END
+install.rb
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf/install.rb
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2654/projetos-pw/hodir/vendor/plugins/ruby_amf/README
+END
